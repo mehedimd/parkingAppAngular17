@@ -1,0 +1,125 @@
+<div class="container">
+  <div class="row py-3">
+    <div class="col-md-6 offset-md-3 shadow-lg p-3">
+      <div class="title text-center">
+        <h3 class="text-center text-light bg-primary py-1">Lavel Form</h3>
+      </div>
+      <form [formGroup]="lavelForm" (ngSubmit)="CreateLavel()">
+        <div class="row g-2">
+          @if(isEdit){
+          <div>
+            <label class="form-label">Lavel Id</label>
+            <input
+              type="number"
+              class="form-control"
+              formControlName="lavelId"
+              readonly
+            />
+          </div>
+          }
+          <div>
+            <label class="form-label">Floor Name</label>
+            <input
+              type="text"
+              class="form-control"
+              [class]="{
+                'is-invalid':
+                  lavelForm.controls.floorName.touched &&
+                  lavelForm.controls.floorName.errors
+              }"
+              formControlName="floorName"
+            />
+          </div>
+          <div>
+            <label class="form-label">Vehicle Type</label>
+            <select
+              formControlName="vehicleType"
+              class="form-select"
+              [class]="{
+                'is-invalid':
+                  lavelForm.controls.vehicleType.touched &&
+                  lavelForm.controls.vehicleType.errors
+              }"
+            >
+              <option value="">--Choose Vehicle--</option>
+              <option value="Car">Car</option>
+              <option value="MotorCycle">MotorCycle</option>
+              <option value="Truck">Truck</option>
+            </select>
+          </div>
+          <div>
+            <h3 class="text-center text-secondary bg-light">
+              Add Some Parking Spot
+            </h3>
+            <table class="table text-center">
+              <thead>
+                <tr>
+                  <th>Serial No</th>
+                  <th>Availablity</th>
+                  <th>
+                    <input
+                      type="button"
+                      class="btn btn-sm btn-primary"
+                      value="Add Parking Spot+"
+                      (click)="addOrUpdateParkingSpot(null)"
+                    />
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                @for(spot of lavelService.parkingSpotsList; track
+                spot.parkingSpotId; let index = $index){
+                <tr>
+                  <td>{{ spot.serialNo }}</td>
+                  @if(spot.isAvailable){
+                  <td class="text-danger">Available</td>
+                  }@else {
+                  <td class="text-success">Booked</td>
+                  }
+                  <td>
+                    <input
+                      type="button"
+                      value="Edit"
+                      class="btn btn-sm btn-success"
+                      (click)="addOrUpdateParkingSpot(index)"
+                    />
+                    <input
+                      type="button"
+                      value="Delete"
+                      class="btn btn-sm btn-danger ms-2"
+                      (click)="removeSpot(index)"
+                    />
+                  </td>
+                </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+          <div class="mt-2">
+            @if(isEdit){
+            <input
+              type="submit"
+              class="btn btn-sm btn-warning"
+              value="Update"
+              [disabled]="lavelForm.invalid"
+            />
+            }@else {
+            <input
+              type="submit"
+              class="btn btn-sm btn-primary"
+              value="Submit"
+              [disabled]="lavelForm.invalid"
+            />
+            }
+            <input
+              type="button"
+              class="btn btn-sm btn-success ms-2"
+              value="Back To List"
+              routerLink="/lavel"
+            />
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

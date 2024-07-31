@@ -1,0 +1,106 @@
+<div class="container">
+  <div class="row py-3">
+    <div class="col-md-10 offset-md-1">
+      <div class="mb-2">
+        <input
+          class="btn btn-sm btn-primary"
+          type="button"
+          value="New Lavel"
+          routerLink="/lavel/add"
+        />
+      </div>
+      <table class="table table-bordered text-center">
+        <thead>
+          <tr>
+            <th>Lavel No.</th>
+            <th>Floor Name</th>
+            <th>Total Spot</th>
+            <th>Vehicle Type</th>
+            <th>--Action--</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for(lavel of lavelList; track lavel.lavelId){
+          <tr>
+            <td>{{ lavel.lavelId }}</td>
+            <td>{{ lavel.floorName }}</td>
+            <td>{{ lavel.totalNumOfSpot }}</td>
+            <td>{{ lavel.vehicleType }}</td>
+            <td>
+              <input
+                type="button"
+                value="Edit"
+                class="btn btn-sm btn-warning"
+                routerLink="/lavel/edit/{{ lavel.lavelId }}"
+              />
+              <input
+                type="button"
+                value="Delete"
+                class="btn btn-sm btn-danger ms-2"
+                (click)="DeleteLavel(lavel.lavelId)"
+              />
+              <input
+                type="button"
+                value="Spot List"
+                class="btn btn-sm btn-secondary ms-2"
+                (click)="GetLavelById(lavel.lavelId)"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
+              />
+            </td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- modal for spot list -->
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content text-center">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5 text-primary" id="exampleModalLabel">
+          Spot List for Lavel : {{ singleLavel.lavelId }}, Floor :
+          {{ singleLavel.floorName }}
+        </h1>
+      </div>
+      <div class="modal-body">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Serial No.</th>
+              <th>Availablity</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for(item of singleLavel.parkingSpots; track item.parkingSpotId){
+            <tr>
+              <td>{{ item.serialNo }}</td>
+              @if(item.isAvailable){
+              <td class="text-danger">Available</td>
+              }@else {
+              <td class="text-success">Booked</td>
+              }
+            </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

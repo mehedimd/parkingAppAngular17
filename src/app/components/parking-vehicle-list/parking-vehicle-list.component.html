@@ -1,0 +1,50 @@
+<div class="container">
+  <div class="row py-3">
+    <div class="col-md-10 offset-md-1">
+      <div class="mb-2 d-flex">
+        <input
+          type="button"
+          value="New Parking"
+          class="btn btn-sm btn-primary"
+          routerLink="/parkingVehicle/add"
+        />
+        <input
+          type="text"
+          #srcValue
+          (input)="SearchByLicense(srcValue.value)"
+          class="form-control ms-2"
+          placeholder="Search Vehicle by License Plate.."
+        />
+      </div>
+      <table class="table text-center table-bordered">
+        <thead>
+          <tr>
+            <th>License Plate</th>
+            <th>Vehicle Type</th>
+            <th>Spot Serial No.</th>
+            <th>Floor Name</th>
+            <th>--Action--</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for(parking of parkingVehicleList; track parking.parkingVehicleId){
+          <tr>
+            <td>{{ parking.licensePlate | uppercase }}</td>
+            <td>{{ parking.type }}</td>
+            <td>{{ parking.serialNo | uppercase }}</td>
+            <td>{{ parking.floorName }}</td>
+            <td>
+              <input
+                type="button"
+                value="UnPark Now"
+                class="btn btn-sm btn-warning"
+                (click)="UnParkVehicle(parking.parkingVehicleId)"
+              />
+            </td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

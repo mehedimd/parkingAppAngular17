@@ -1,0 +1,51 @@
+<div class="container">
+  <div class="row py-3">
+    <div class="col-md-6 offset-md-3 shadow-lg py-5 px-3">
+      <div class="formTitle">
+        <h3 class="text-light bg-primary text-center">Parking Form</h3>
+      </div>
+      <form [formGroup]="parkingForm" (ngSubmit)="CreateParkingVehicle()">
+        <div class="row g-2">
+          <div>
+            <label>License Plate</label>
+            <input
+              type="text"
+              class="form-control"
+              [class]="{
+                'is-invalid':
+                  parkingForm.controls.licensePlate.touched &&
+                  parkingForm.controls.licensePlate.errors
+              }"
+              formControlName="licensePlate"
+            />
+          </div>
+          <div>
+            <label>Vehicle Type</label>
+            <select
+              formControlName="type"
+              class="form-select"
+              [class]="{
+                'is-invalid':
+                  parkingForm.controls.type.touched &&
+                  parkingForm.controls.type.errors
+              }"
+            >
+              <option value="">--Choose Vehicle--</option>
+              <option value="Car">Car</option>
+              <option value="Truck">Truck</option>
+              <option value="Motorcycle">Motorcycle</option>
+            </select>
+          </div>
+          <div>
+            <input
+              type="submit"
+              value="Submit"
+              class="btn btn-sm btn-primary"
+              [disabled]="parkingForm.invalid"
+            />
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

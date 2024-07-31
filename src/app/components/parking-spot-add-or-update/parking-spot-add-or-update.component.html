@@ -1,0 +1,34 @@
+<div class="px-3 py-5">
+  <form [formGroup]="parkingSpotForm" (ngSubmit)="CreateSpot()">
+    <h3 class="text-center text-light bg-primary">Parking Spot</h3>
+    <div class="row">
+      <div>
+        <label>Enter Serial No.</label>
+        <input
+          type="text"
+          class="form-control"
+          [class]="{
+            'is-invalid':
+              parkingSpotForm.controls.serialNo.touched &&
+              parkingSpotForm.controls.serialNo.errors
+          }"
+          formControlName="serialNo"
+        />
+      </div>
+      <div class="mt-2">
+        <input
+          type="submit"
+          value="Save"
+          class="btn btn-sm btn-primary"
+          [disabled]="parkingSpotForm.invalid"
+        />
+        <input
+          type="button"
+          value="Close"
+          class="btn btn-sm btn-secondary ms-2"
+          [mat-dialog-close]
+        />
+      </div>
+    </div>
+  </form>
+</div>
