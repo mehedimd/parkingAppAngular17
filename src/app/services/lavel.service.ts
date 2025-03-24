@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from "../../environments/environments";
 
-const baseUrl = 'https://localhost:7095/api/Lavel';
+const baseUrl =`${environment.apiUrl}/Lavel`;
 
 @Injectable({
   providedIn: 'root',
